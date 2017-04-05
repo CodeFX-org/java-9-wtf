@@ -5,3 +5,4 @@ All files in this project should compile fine with Java 8 (tested with u121) but
 Look for comments `// fail` to see what doesn't work and `// pass` for fixes that make it work in Java 9.
 
 * [casts like `(int) Comparable<T>`](src/wtf/java9/inference/CastWildcardParam.java)
+* [shenanigans with generic arrays](src/wtf/java9/inference/GenericArray.java)
