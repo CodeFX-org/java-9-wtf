@@ -1,0 +1,25 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+            jaxb:version="2.0" targetNamespace="http://java9.wtf/xml-generation"
+            xmlns:this="http://java9.wtf/xml-generation"
+            elementFormDefault="qualified">
+
+    <xsd:annotation>
+        <xsd:appinfo>
+            <jaxb:schemaBindings>
+                <jaxb:package name="wtf9.java.xml.generation.pack.does.not.show.up.in.java9" />
+            </jaxb:schemaBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+
+    <xsd:element name="connection" type="this:SimpleClass">
+    </xsd:element>
+
+    <xsd:complexType name="SimpleClass">
+        <xsd:sequence>
+            <xsd:element name="attribute" type="xsd:string" minOccurs="1" maxOccurs="1">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>
