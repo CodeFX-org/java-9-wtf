@@ -44,9 +44,6 @@
                         </goals>
                         <configuration>
                             <schemaDirectory>schema</schemaDirectory>
-                            <schemaIncludes>
-                                <include>SimpleClass.xsd</include>
-                            </schemaIncludes>
                             <generateDirectory>${basedir}/generated</generateDirectory>
                         </configuration>
                     </execution>

@@ -4,17 +4,6 @@
             xmlns:this="http://java9.wtf/xml-generation"
             elementFormDefault="qualified">
 
-    <xsd:annotation>
-        <xsd:appinfo>
-            <jaxb:schemaBindings>
-                <jaxb:package name="wtf9.java.xml.generation.pack.does.not.show.up.in.java9" />
-            </jaxb:schemaBindings>
-        </xsd:appinfo>
-    </xsd:annotation>
-
-    <xsd:element name="connection" type="this:SimpleClass">
-    </xsd:element>
-
     <xsd:complexType name="SimpleClass">
         <xsd:sequence>
             <xsd:element name="attribute" type="xsd:string" minOccurs="1" maxOccurs="1">

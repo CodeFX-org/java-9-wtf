@@ -1,0 +1,26 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+            jaxb:version="2.0" targetNamespace="http://java9.wtf/xml-generation/no/pack"
+            xmlns:this="http://java9.wtf/xml-generation"
+            elementFormDefault="qualified">
+
+    <!-- The following binding does not work on Java 9, which means that the resulting
+            class shows up in the package `wtf.java9.xml_generation.no.pack` (as per
+               target namespace) instead of `wtf.java9.xml_generation.with.pack`. -->
+
+    <xsd:annotation>
+        <xsd:appinfo>
+            <jaxb:schemaBindings>
+                <jaxb:package name="wtf.java9.xml_generation.with.pack" />
+            </jaxb:schemaBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+
+    <xsd:complexType name="SimpleClassWithPackage">
+        <xsd:sequence>
+            <xsd:element name="attribute" type="xsd:string" minOccurs="1" maxOccurs="1">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>
