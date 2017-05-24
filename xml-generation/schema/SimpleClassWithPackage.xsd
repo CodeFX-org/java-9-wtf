@@ -1,7 +1,6 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             jaxb:version="2.0" targetNamespace="http://java9.wtf/xml-generation/no/pack"
-            xmlns:this="http://java9.wtf/xml-generation"
             elementFormDefault="qualified">
 
     <!-- The following binding does not work on Java 9, which means that the resulting
@@ -11,7 +10,7 @@
     <xsd:annotation>
         <xsd:appinfo>
             <jaxb:schemaBindings>
-                <jaxb:package name="wtf.java9.xml_generation.with.pack" />
+                <jaxb:package name="wtf.java9.xml_generation.with.pack"/>
             </jaxb:schemaBindings>
         </xsd:appinfo>
     </xsd:annotation>
