@@ -3,6 +3,9 @@ package wtf.java9.xml_generation;
 import com.sun.org.apache.xml.internal.resolver.CatalogManager;
 import com.sun.org.apache.xml.internal.resolver.tools.CatalogResolver;
 import org.xml.sax.EntityResolver;
+import wtf.java9.xml_generation.jaxb_plugin.MavenCatalogResolver;
+import wtf.java9.xml_generation.jaxb_plugin.ReResolvingEntityResolverWrapper;
+import wtf.java9.xml_generation.jaxb_plugin.UoeDependencyResourceResolver;
 
 public class EntityResolverFactory {
 
@@ -40,9 +43,10 @@ public class EntityResolverFactory {
 		final CatalogManager catalogManager = new CatalogManager();
 		catalogManager.setIgnoreMissingProperties(true);
 		catalogManager.setUseStaticCatalog(false);
-		// TODO: replace with org.jvnet.jaxb2.maven2.resolver.tools.MavenCatalogResolver
-		// TODO: wrap into ReResolvingEntityResolverWrapper
-		return new CatalogResolver(catalogManager);
+		MavenCatalogResolver catalogResolver = new MavenCatalogResolver(
+				catalogManager,
+				new UoeDependencyResourceResolver());
+		return new ReResolvingEntityResolverWrapper(catalogResolver);
 	}
 
 }
