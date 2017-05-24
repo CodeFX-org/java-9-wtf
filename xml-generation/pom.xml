@@ -188,6 +188,7 @@
 						<configuration>
 							<!--<executable>${java}</executable>-->
 							<mainClass>wtf.java9.xml_generation.GenerateWithJaxbApi</mainClass>
+							<arguments>${catalog.resolver}</arguments>
 						</configuration>
 					</execution>
 				</executions>

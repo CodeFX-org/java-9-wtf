@@ -29,22 +29,23 @@ public class GenerateWithJaxbApi {
 	// *********
 
 	public static void main(String[] args) throws Exception {
-		new GenerateWithJaxbApi().execute();
+		String configuration = args.length == 0 ? "" : args[0];
+		new GenerateWithJaxbApi().execute(configuration);
 	}
 
-	private void execute() throws Exception {
-		Options options = createOptions();
+	private void execute(String configuration) throws Exception {
+		Options options = createOptions(configuration);
 		Model model = ModelLoader.load(options, new JCodeModel(), ERROR_RECEIVER);
 		Outline outline = model.generateCode(model.options, ERROR_RECEIVER);
 		writeCode(outline);
 	}
 
-	private Options createOptions() throws IOException {
+	private Options createOptions(String configuration) throws IOException {
 		Options options = new Options();
 
 		options.compatibilityMode = 2;
 		options.disableXmlSecurity = true;
-		options.entityResolver = CatalogResolverFactory.createCatalogResolver();
+		options.entityResolver =  EntityResolverFactory.create(configuration);
 		generateSchemaInputSources().forEach(options::addGrammar);
 		options.setSchemaLanguage(Language.XMLSCHEMA);
 		options.target = SpecVersion.V2_2;
