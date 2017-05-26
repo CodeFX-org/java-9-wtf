@@ -9,6 +9,7 @@
 	<version>1.0-SNAPSHOT</version>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
@@ -28,6 +29,78 @@
 		</dependency>
 	</dependencies>
 
+	<build>
+		<plugins>
+			<!-- use the maven-jaxb2-plugin to generate classes -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>clean-generated</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+						<configuration>
+							<filesets>
+								<fileset>
+									<directory>${basedir}/generated-jaxb-api</directory>
+								</fileset>
+								<fileset>
+									<directory>${basedir}/generated-jaxb-plugin</directory>
+								</fileset>
+							</filesets>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<version>0.13.2</version>
+				<executions>
+					<execution>
+						<id>generate-classes</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<schemaDirectory>schema</schemaDirectory>
+							<generateDirectory>${basedir}/generated-jaxb-plugin</generateDirectory>
+							<!-- disabling the generation of the episode file (whatever it does!)
+								 prevents the "Prefix '' is already bound to ''" error on Java 9 -->
+							<episode>false</episode>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- generate sources with JAXB API by executing `GenerateWithJaxbApi`;
+			 		by doing this via Maven (as opposed to in the tests), it becomes debuggable
+			 		via mvnDebug -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<!--<executable>${java}</executable>-->
+							<mainClass>wtf.java9.xml_generation.GenerateWithJaxbApi</mainClass>
+							<arguments>${entity.resolver}</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
 	<!--
 		Execute the build with either Java 8 or Java 9 by editing your ~/.mavenrc file, e.g.:
 			JAVA_HOME=/opt/java/jdk-9
@@ -35,7 +108,6 @@
 		IMPORTANT:
 		The maven-jaxb2-plugin uses JDK-internal API so it only works on Java 9 if .mvn/jvm.config is present!
 	-->
-
 
 	<profiles>
 
@@ -128,78 +200,22 @@
 							<fork>true</fork>
 						</configuration>
 					</plugin>
+<!--
+					<plugin>
+						<groupId>org.jvnet.jaxb2.maven2</groupId>
+						<artifactId>maven-jaxb2-plugin</artifactId>
+						<version>0.13.3-SNAPSHOT</version>
+					</plugin>
+-->
+				<plugin>
+					<!-- the new surefire version has colored output -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.20</version>
+				</plugin>
 				</plugins>
 			</build>
 		</profile>
 	</profiles>
-
-	<build>
-		<plugins>
-			<!-- use the maven-jaxb2-plugin to generate classes -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.0.0</version>
-				<executions>
-					<execution>
-						<id>clean-generated</id>
-						<phase>clean</phase>
-						<goals>
-							<goal>clean</goal>
-						</goals>
-						<configuration>
-							<filesets>
-								<fileset>
-									<directory>${basedir}/generated-jaxb-plugin</directory>
-								</fileset>
-							</filesets>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.jvnet.jaxb2.maven2</groupId>
-				<artifactId>maven-jaxb2-plugin</artifactId>
-				<version>0.13.2</version>
-				<executions>
-					<execution>
-						<id>generate-classes</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<schemaDirectory>schema</schemaDirectory>
-							<generateDirectory>${basedir}/generated-jaxb-plugin</generateDirectory>
-							<!-- disabling the generation of the episode file (whatever it does!)
-								 prevents the "Prefix '' is already bound to ''" error on Java 9 -->
-							<episode>false</episode>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<!-- execute `GenerateWithJaxbApi` to generate classes via the XJC API;
-					do it during process-classes phase to verify in test whether classes were created -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
-				<executions>
-					<execution>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>java</goal>
-						</goals>
-						<configuration>
-							<!--<executable>${java}</executable>-->
-							<mainClass>wtf.java9.xml_generation.GenerateWithJaxbApi</mainClass>
-							<arguments>${catalog.resolver}</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

@@ -11,12 +11,17 @@ public class EntityResolverFactory {
 
 	public static EntityResolver create(String configuration) {
 		switch (configuration) {
+			case "blank":
+				return blank();
+			case "simple":
+				return withDefaultSimpleCatalogManager();
+			case "simpleConfigured":
+				return withConfiguredSimpleCatalogManager();
 			case "":
-			case "blank": return blank();
-			case "simple": return withDefaultSimpleCatalogManager();
-			case "simpleConfigured": return withConfiguredSimpleCatalogManager();
-			case "9yards": return asInPlugin();
-			default: throw new IllegalArgumentException("Unknown configuration: " + configuration);
+			case "asPlugin":
+				return asInPlugin();
+			default:
+				throw new IllegalArgumentException("Unknown configuration: " + configuration);
 		}
 	}
 
@@ -39,7 +44,7 @@ public class EntityResolverFactory {
 	}
 
 	private static EntityResolver asInPlugin() {
-		// TODO: works on Java 9?
+		// works on Java 9 - WHY?!
 		final CatalogManager catalogManager = new CatalogManager();
 		catalogManager.setIgnoreMissingProperties(true);
 		catalogManager.setUseStaticCatalog(false);

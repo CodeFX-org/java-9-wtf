@@ -96,14 +96,14 @@ public class MavenCatalogResolver extends
 				getLog().error(
 						MessageFormat
 								.format("Failed to resolve systemId [{1}] as dependency resource. "
-										+ "Returning parent resolver result [{2}].",
+												+ "Returning parent resolver result [{2}].",
 										publicId, systemId, superResolvedEntity));
 				return superResolvedEntity;
 			} else {
 				getLog().debug(
 						MessageFormat
 								.format("SystemId [{1}] is not a Maven dependency resource URI. "
-										+ "Returning parent resolver result [{2}].",
+												+ "Returning parent resolver result [{2}].",
 										publicId, systemId, superResolvedEntity));
 				return superResolvedEntity;
 			}
@@ -111,7 +111,7 @@ public class MavenCatalogResolver extends
 			getLog().debug(
 					MessageFormat
 							.format("Coul not parse the systemId [{1}] as URI. "
-									+ "Returning parent resolver result [{2}].",
+											+ "Returning parent resolver result [{2}].",
 									publicId, systemId, superResolvedEntity));
 			return superResolvedEntity;
 		}

@@ -13,8 +13,10 @@ import org.xml.sax.SAXParseException;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
-import java.util.Comparator;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 public class GenerateWithJaxbApi {
@@ -45,7 +47,7 @@ public class GenerateWithJaxbApi {
 
 		options.compatibilityMode = 2;
 		options.disableXmlSecurity = true;
-		options.entityResolver =  EntityResolverFactory.create(configuration);
+		options.entityResolver = EntityResolverFactory.create(configuration);
 		generateSchemaInputSources().forEach(options::addGrammar);
 		options.setSchemaLanguage(Language.XMLSCHEMA);
 		options.target = SpecVersion.V2_2;
@@ -61,18 +63,7 @@ public class GenerateWithJaxbApi {
 	}
 
 	private File createCleanTargetDirectory() throws IOException {
-		if (Files.exists(GENERATION_TARGET_FOLDER))
-			delete(GENERATION_TARGET_FOLDER);
 		return Files.createDirectories(GENERATION_TARGET_FOLDER).toFile();
-	}
-
-	private void delete(Path directory) throws IOException {
-		// only empty directories can be deleted,
-		// so this is more than a simple method call to File::delete
-		Files.walk(directory, FileVisitOption.FOLLOW_LINKS)
-				// reverse order so that files are deleted before directories
-				.sorted(Comparator.reverseOrder())
-				.forEach(fileOrFolder -> fileOrFolder.toFile().delete());
 	}
 
 	private void writeCode(Outline outline) throws IOException {

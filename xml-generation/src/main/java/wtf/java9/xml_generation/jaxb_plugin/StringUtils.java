@@ -7,11 +7,10 @@ public class StringUtils {
 
 	/**
 	 * Checks if a (trimmed) String is <code>null</code> or empty.
-	 * 
-	 * @param string
-	 *            the String to check
+	 *
+	 * @param string the String to check
 	 * @return <code>true</code> if the string is <code>null</code>, or length
-	 *         zero once trimmed.
+	 * zero once trimmed.
 	 */
 	public static boolean isEmpty(String string) {
 		return (string == null || string.trim().length() == 0);
