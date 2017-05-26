@@ -8,5 +8,6 @@ This is not about whether the things _should_ break or not and whether that's go
 Each topic or problem gets its own subdirectory to make sure they don't interfere with one another.
 
 * [type inference](type-inference)
+* [Maven JAXB2 Plugin](maven-jaxb2-plugin)
 
 Contributions are very welcome!
