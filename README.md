@@ -5,9 +5,10 @@ In this repository I collect [short, self contained, correct (or not) examples](
 Note that there is no judgment involved!
 This is not about whether the things _should_ break or not and whether that's good or bad - it's just about what _does_ break.
 
-Each topic or problem gets its own subdirectory to make sure they don't interfere with one another.
+Most topics or problems get their own subdirectory to make sure they don't interfere with one another.
 
 * [type inference](type-inference)
 * [Maven JAXB2 Plugin](maven-jaxb2-plugin)
+* [miscellaneous](misc)
 
 Contributions are very welcome!
