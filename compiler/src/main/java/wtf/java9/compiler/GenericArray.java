@@ -1,4 +1,4 @@
-package wtf.java9.inference;
+package wtf.java9.compiler;
 
 import java.util.Arrays;
 import java.util.Optional;

@@ -1,6 +1,6 @@
-package wtf.java9.inference;
+package wtf.java9.compiler;
 
-import javax.swing.*;
+import javax.swing.SpinnerNumberModel;
 
 /**
  * There seem to be problems with casting a type that is parameterized with a wildcard to another
