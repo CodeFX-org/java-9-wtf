@@ -17,6 +17,7 @@
 
 	<modules>
 		<module>compiler</module>
+		<module>maven-jaxb2-plugin</module>
 		<module>xml-transformer</module>
 	</modules>
 

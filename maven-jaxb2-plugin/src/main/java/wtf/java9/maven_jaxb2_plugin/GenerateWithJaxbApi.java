@@ -21,10 +21,25 @@ import java.util.stream.Stream;
 
 public class GenerateWithJaxbApi {
 
-	static final Path SCHEMA_FOLDER = FileSystems.getDefault().getPath("schema");
-	static final Path GENERATION_TARGET_FOLDER = Paths.get("generated-jaxb-api");
+	static final Path PROJECT_ROOT = determineProjectRootFolder();
+	static final Path SCHEMA_FOLDER = PROJECT_ROOT.resolve("schema");
+	static final Path GENERATION_TARGET_FOLDER = PROJECT_ROOT.resolve("generated-jaxb-api");
 
 	private static final SystemOutErrorReceiver ERROR_RECEIVER = new SystemOutErrorReceiver();
+
+	private static Path determineProjectRootFolder() {
+		Path launchedFromThisProject = FileSystems.getDefault().getPath("schema");
+		if (launchedFromThisProject.toFile().exists()) {
+			return launchedFromThisProject.toAbsolutePath().getParent();
+		}
+
+		Path launchedFromParentProject = FileSystems.getDefault().getPath("maven-jaxb2-plugin").resolve("schema");
+		if (launchedFromParentProject.toFile().exists()) {
+			return launchedFromParentProject.toAbsolutePath().getParent();
+		}
+
+		throw new IllegalStateException("Can not identify project folder.");
+	}
 
 	// *********
 	// EXECUTION
