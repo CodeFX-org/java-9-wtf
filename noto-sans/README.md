@@ -1,6 +1,4 @@
-# Miscellaneous Pitfalls
-
-## Performance Regression with Noto Sans
+# Performance Regression with Noto Sans
 
 Working with Noto Sans fonts on Java 9 takes considerably longer than on Java 8 (at least on Linux).
 

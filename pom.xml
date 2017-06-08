@@ -18,6 +18,7 @@
 	<modules>
 		<module>compiler</module>
 		<module>maven-jaxb2-plugin</module>
+		<module>noto-sans</module>
 		<module>xml-transformer</module>
 	</modules>
 

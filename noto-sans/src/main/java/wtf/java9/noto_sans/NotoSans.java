@@ -1,4 +1,4 @@
-package wtf.java9.font;
+package wtf.java9.noto_sans;
 
 import sun.font.Font2D;
 import sun.font.FontUtilities;
@@ -9,6 +9,10 @@ import java.lang.reflect.Constructor;
 public class NotoSans {
 
 	public static void main(String[] args) throws ReflectiveOperationException {
+		System.out.println(createScaler());
+	}
+
+	public static Object createScaler() throws ReflectiveOperationException {
 		// these APIs are used to reproduce the specific case I encountered
 		// as closely as possible
 		Font2D font = FontUtilities.getFont2D(new Font("Noto Sans CJK JP Black", 0, 12));
@@ -22,9 +26,7 @@ public class NotoSans {
 				.forName("sun.font.T2KFontScaler")
 				.getConstructor(Font2D.class, int.class, boolean.class, int.class);
 		constructor.setAccessible(true);
-		Object scaler = constructor.newInstance(font, 0, true, 18604592);
-
-		System.out.println(scaler);
+		return constructor.newInstance(font, 0, true, 18604592);
 	}
 
 }
