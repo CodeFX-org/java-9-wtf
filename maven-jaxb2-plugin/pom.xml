@@ -183,7 +183,6 @@
 								<arg>--add-exports</arg><arg>java.xml/com.sun.org.apache.xml.internal.resolver=ALL-UNNAMED</arg>
 								<arg>--add-exports</arg><arg>java.xml/com.sun.org.apache.xml.internal.resolver.tools=ALL-UNNAMED</arg>
 							</compilerArgs>
-							<fork>true</fork>
 						</configuration>
 					</plugin>
 <!--

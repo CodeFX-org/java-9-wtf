@@ -21,7 +21,6 @@ import java.io.StringWriter;
 
 import static java.util.Objects.requireNonNull;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
 
 class TransformTest {
 
