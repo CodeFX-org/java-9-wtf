@@ -1,7 +1,6 @@
 ---
 title: Binding Problems with Maven-JAXB2-Plugin
 date: 2017-06-09
-permalink: /maven-jaxb2-bindings/
 ---
 
 

@@ -1,7 +1,6 @@
 ---
 title: Changed Formatting of XML Transformer
 date: 2017-06-09
-permalink: /xml-transformer/
 ---
 
 
