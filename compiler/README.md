@@ -8,7 +8,7 @@ It looks like the Java 9 compiler's type inference works differently in some cas
 All files in this project compile fine with Java 8 but fail with Java 9.
 Look for comments `// fail` to see what doesn't work and `// pass` for fixes that make it work in Java 9.
 
-Some errors can come from [casts like `(int) Comparable<T>`](src/wtf/java9/compiler/CastWildcardParam.java):
+Some errors can come from [casts like `(int) Comparable<T>`](src/main/java/wtf/java9/compiler/CastWildcardParam.java):
 
 ```java
 public void spinnerModel(SpinnerNumberModel spinnerModel) {
@@ -24,7 +24,7 @@ public void spinnerModel(SpinnerNumberModel spinnerModel) {
 }
 ```
 
-Also, some [shenanigans with generic arrays](src/wtf/java9/compiler/GenericArray.java) stop working:
+Also, some [shenanigans with generic arrays](src/main/java/wtf/java9/compiler/GenericArray.java) stop working:
 
 ```java
 public static <I> Optional[] lift(I[] array) { ... }

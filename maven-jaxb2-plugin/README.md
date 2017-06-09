@@ -1,10 +1,10 @@
 # Bindings With Maven JAXB2 Plugin
 
 The [Maven JAXB2 Plugin](https://github.com/highsource/maven-jaxb2-plugin) does not [process schema bindings on Java 9](https://github.com/highsource/maven-jaxb2-plugin/issues/120).
-This can be demonstrated that by running the plugin and afterwards [testing the existence of the expected classes](src/main/test/wtf/java9/maven_jaxb2_plugin/JaxbPluginTest.java).
+This can be demonstrated that by running the plugin and afterwards [testing the existence of the expected classes](src/test/java/wtf/java9/maven_jaxb2_plugin/JaxbPluginTest.java).
 
 What is irritating is that it was not possible to recreate the error without the plugin!
-The [code in `wtf.java9.maven_jaxb2_plugin`](src/main/java/wtf/java9/maven_jaxb2_plugin) is a simplified (and accidentally "rightified"?) version of the code the plugin is running but it works on both Java 8 and Java 9 as indicated by [another test](src/main/test/wtf/java9/maven_jaxb2_plugin/JaxbApiTest.java).
+The [code in `wtf.java9.maven_jaxb2_plugin`](src/main/java/wtf/java9/maven_jaxb2_plugin) is a simplified (and accidentally "rightified"?) version of the code the plugin is running but it works on both Java 8 and Java 9 as indicated by [another test](src/test/java/wtf/java9/maven_jaxb2_plugin/JaxbApiTest.java).
 Why?!
 
 (Maybe the dependencies play a role?
