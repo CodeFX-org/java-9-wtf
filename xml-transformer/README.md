@@ -1,31 +1,52 @@
-## Java 8
+# XML Transformation
 
-Ohne besondere Settings:
+The behavior of [`javax.xml.transform.Transformer`](https://docs.oracle.com/javase/8/docs/api/javax/xml/transform/Transformer.html) changed considerably.
+Take the following sequence:
 
-* bestehende Indentierung bleibt erhalten
-* neue Knoten sind inline
-* CDATA ebenso
-* `xml:space="preserve"` macht keinen Unterschied
+```java
+// prepare an XML file as a DOM Source
+String xml = "...";
+Document document = DocumentBuilderFactory
+		.newInstance()
+		.newDocumentBuilder()
+		.parse(new InputSource(new StringReader(xml)));
+// maybe add some nodes or CDATA content
 
-Mit `OutputKeys.INDENT=yes`, `indent-amount=4`:
+// transform the XML
+Source source = new DOMSource(document);
+Transformer transformer = TransformerFactory.newInstance().newTransformer();
+// maybe configure transformer
+StringWriter outputWriter = new StringWriter();
+transformer.transform(source, new StreamResult(outputWriter));
+String transformedXml = outputWriter.toString();
 
-* bestehende Indentierung bleibt erhalten
-* neue Knoten werden entsprechend Einstellungen eingerückt
-* CDATA wird nicht eingerückt
-* `xml:space="preserve"` macht keinen Unterschied
+// now compare `xml` and `transformedXml`
+```
 
-## Java 9
+Then the behavior between Java 8 and 9, with and without configuration, and with and without `xml:space="preserve"` differs.
+This is the most common behavior:
 
-Ohne besondere Settings:
+* existing indentation remains
+* new nodes, including CDATA are inline
 
-* bestehende Indentierung bleibt erhalten
-* neue Knoten sind inline
-* CDATA ebenso
-* `xml:space="preserve"` macht keinen Unterschied
+It can be observed on Java 8 and 9 if the transformer was not configured beyond defaults and regardless of `xml:space="preserve"`.
 
-Mit `OutputKeys.INDENT=yes`, `indent-amount=4`:
+But when you configure the transformer with `OutputKeys.INDENT=yes` and `indent-amount=4` Java 8 and 9 behave differently.
+On Java 8 you get:
 
-* gesamtes Dokument neu engerückt (?)
-* neue Knoten ebenso
-* CDATA ebenso (!)
-* mit `xml:space="preserve"` wie ohne besondere Settings
+* existing indentation remains
+* new nodes are indented according to the settings
+* CDATA is not indented
+
+On Java 9, though, this happens:
+
+* entire document is indented according to settings, including a bunch of spurious empty lines
+* accordingly new nodes are indented
+* CDATA is put onto new lines and indented as well, fundamentally changing the XML!
+
+Furthermore, with further configuration it becomes apparent that `xml:space="preserve"` behaves differently as well.
+On Java 8 it has no effect, on Java 9 it drops us back into the "nothing changes" case described first.
+
+[The test](src/test/java/wtf/java9/xml_transformer/TransformTest.java) demonstrates that behavior, using JUnit 5's cool nested tests. 
+
+(Last checked: 8u131 and 9-ea+172-jigsaw)

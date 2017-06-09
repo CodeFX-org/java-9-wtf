@@ -1,23 +1,22 @@
 # Bindings With Maven JAXB2 Plugin
 
 The [Maven JAXB2 Plugin](https://github.com/highsource/maven-jaxb2-plugin) does not [process schema bindings on Java 9](https://github.com/highsource/maven-jaxb2-plugin/issues/120).
-This project demonstrates that by running the plugin and afterwards [testing the existence of the expected classes](src/main/test/wtf/java9/maven_jaxb2_plugin/JaxbPluginTest.java).
+This can be demonstrated that by running the plugin and afterwards [testing the existence of the expected classes](src/main/test/wtf/java9/maven_jaxb2_plugin/JaxbPluginTest.java).
 
 What is irritating is that it was not possible to recreate the error without the plugin!
 The [code in `wtf.java9.maven_jaxb2_plugin`](src/main/java/wtf/java9/maven_jaxb2_plugin) is a simplified (and accidentally "rightified"?) version of the code the plugin is running but it works on both Java 8 and Java 9 as indicated by [another test](src/main/test/wtf/java9/maven_jaxb2_plugin/JaxbApiTest.java).
 Why?!
 
-## Setup
+(Maybe the dependencies play a role?
+Class path content between running the plugin and calling the API differs.)
 
-To verify the behavior on Java 8 you can simply execute `mvn clean test`.
-Sources get generated in the both `generated-jaxb-*` folders and all tests pass.
+## Observe!
 
-For Java 9, there is a little setup involved:
+Running the project with `mvn clean test` creates two `generated-jaxb-*` folders, one for the sources created by the plugin the other by the JAXB API.
+On Java 8 they are identical, on Java 9 they are not.
+[The tests](src/test/java/wtf/java9/maven_jaxb2_plugin) try to verify that the sources are present and accordingly fail on Java 9.
 
-* execute Maven with Java 9, e.g. by [defining `JAVA_HOME` in a `.mavenrc` file](https://github.com/CodeFX-org/mvn-java-9/tree/master/mavenrc)
-* in the project's `.mvn` folder, rename the file `jvm9.config` to `jvm.config`, which adds Java-9-specific command line flags letting the plugin use JDK-internal APIs
-
-Now `mvn clean test` should execute but fail with two unsuccessful tests - these are the ones verifying that the plugin respects the bindings.
+(Last checked: 8u131 and 9-ea+172-jigsaw)
 
 ## Plugin Version
 
