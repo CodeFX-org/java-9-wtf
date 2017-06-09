@@ -5,6 +5,7 @@ import re
 
 root_targetdir = './gh-pages/_pages'
 project_targetdir = './gh-pages/_posts'
+repo_url = 'https://github.com/CodeFX-org/java-9-wtf/tree/master'
 
 def clean_dir(dir):
 	"""Deletes all files in the specified directory"""
@@ -64,6 +65,21 @@ def write_post(sourcedir, date, meta, content, targetdir):
 	print_dir_message('target file name: ' + filename)
 	write_meta_and_content(meta, content, targetdir, filename)
 
+def read_readme(sourcedir):
+	"""Reads the README.md in the specified directory and removes all
+		h1 headers because they would conflict with the title Jekyll sets"""
+	readmefile = open(sourcedir + '/README.md', encoding = 'UTF-8')
+	content = ''
+	for line in readmefile:
+		if not line.startswith('# '):
+			# replace relative links pointing to sources;
+			# inline, e.g. '[foo](src/bar.java)' to '[foo](<REPO>/src/bar.java)'
+			line = re.sub('\[([^\]]*)\]\((src/[^)]*)\)', '[\\1](' + repo_url + '/' + sourcedir + '/\\2)', line)
+			# footnote, e.g. '[foo]: src/bar.java' to '[foo]: <REPO>/src/bar.java'
+			line = re.sub('^\[([^\]]*)\]:\s*(src/.*)', '[\\1]: ' + repo_url + '/' + sourcedir + '/\\2', line)
+			content += line
+	return content
+
 def read_date_and_meta(sourcedir):
 	"""Reads the meta.yaml in the specified directory and extracts the date
 		as well as the rest of the file content"""
@@ -78,16 +94,6 @@ def read_date_and_meta(sourcedir):
 	if not meta.endswith('\n'):
 		meta += '\n'
 	return (date, meta)
-
-def read_readme(sourcedir):
-	"""Reads the README.md in the specified directory and removes all
-		h1 headers because they would conflict with the title Jekyll sets"""
-	readmefile = open(sourcedir + '/README.md', encoding = 'UTF-8')
-	content = ''
-	for line in readmefile:
-		if not line.startswith('# '):
-			content += line
-	return content
 
 def print_dir_abort(message):
 	print_dir_message(message)
