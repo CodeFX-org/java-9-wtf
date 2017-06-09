@@ -5,13 +5,16 @@ Here I collect [short, self contained, correct (or not) examples](http://www.ssc
 Note that there is no judgment involved!
 This is not about whether the things _should_ break or not and whether that's good or bad - it's just about what _does_ break.
 
-Topics or problems get their own little project and site to present themselves.
+You could be looking at this either [as a beautiful static site](http://codefx-org.github.io/java-9-wtf/) or [as a GitHub repository](https://github.com/CodeFX-org/java-9-wtf).
+
+## Table Of Contents
+
 So far we have trouble with...
 
 * [the compiler](compiler)
 * [the Maven JAXB2 Plugin](maven-jaxb2-plugin)
 * [Noto Sans](noto-sans)
-* [XML transformations][xml-transformer]
+* [XML transformations](xml-transformer)
 
 
 ## Observe!
