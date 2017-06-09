@@ -11,7 +11,7 @@ This is not about whether the things _should_ break or not and whether that's go
 
 You could be looking at this either [as a beautiful static site](http://codefx-org.github.io/java-9-wtf/) or [as a GitHub repository](https://github.com/CodeFX-org/java-9-wtf).
 
-## Table Of Contents
+## Browse!
 
 So far we have trouble with...
 
@@ -34,7 +34,7 @@ To run  it on Java 9:
 * in the `.mvn` folders, rename the non-empty files `jvm9.config` to `jvm.config`, which adds Java-9-specific command line flags required for the project
 
 
-## Contributions
+## Contribute!
 
 Contributions are very welcome!
 To make sure they have high quality, make sure your demo checks as many of these boxes as possible:
@@ -42,7 +42,7 @@ To make sure they have high quality, make sure your demo checks as many of these
 * it should be [as small as possible](http://www.sscce.org/)
 * it should be a Maven module, where `mvn clean test` passes on Java 8 but fails on Java 9
 * it should demonstrate the behavior without much editing:
-    * in the POM use profiles if compiler or Surefire need arguments on different releases
+    * if compiler or Surefire need different arguments on different releases, use profiles
     * if the entire Maven run needs arguments, have a look at how `.mvn/jvm.config` works
 * its README should describe the problem, possibly show some code (and link to more), and also point out the solution if one is available; also, don't forget to link to it from above
 * the README should also mention the Java 8 and 9 versions on which the described behavior was observed

@@ -51,6 +51,6 @@ On Java 9, though, this happens:
 Furthermore, with further configuration it becomes apparent that `xml:space="preserve"` behaves differently as well.
 On Java 8 it has no effect, on Java 9 it drops us back into the "nothing changes" case described first.
 
-[The test](src/test/java/wtf/java9/xml_transformer/TransformTest.java) demonstrates that behavior, using JUnit 5's cool nested tests. 
+[The test](https://github.com/CodeFX-org/java-9-wtf/tree/master/./xml-transformer/src/test/java/wtf/java9/xml_transformer/TransformTest.java) demonstrates that behavior, using JUnit 5's cool nested tests. 
 
 (Last checked: 8u131 and 9-ea+172-jigsaw)
