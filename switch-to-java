@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Calling this script will make the build run on the entered Java version - it
+# is called with either 8 or 9 as parameter.
+#
+# The assumption is that the system JDK is version 8 and that JDK 9 is
+# installed somewhere as well. The script edits the ~/.mavenrc file to define
+# the JAVA_HOME variable for Maven and makes sure that project-specific
+# .mvn/jvm.config files are either present or not, depending on the version.
+
+java_version=$1
+# define the path to your Java 9 install here
+java_9_path="/opt/jdk-9"
+
+if [ $java_version -eq 8 ]; then
+	if [ -f ~/.mavenrc ]; then
+    	sed -i -e 's/^JAVA_HOME/#JAVA_HOME/' ~/.mavenrc
+    fi
+    if [ -f $PWD/.mvn/jvm.config ]; then
+        mv -f $PWD/.mvn/jvm.config $PWD/.mvn/jvm9.config
+    fi
+elif [ $java_version -eq 9 ]; then
+	if [ -f ~/.mavenrc ]; then
+    	sed -i -e 's/^JAVA_HOME/#JAVA_HOME/' ~/.mavenrc
+    else
+    	echo "JAVA_HOME=\"$java_9_path\"" >> ~/.mavenrc
+    fi
+    sed -i -e 's/#*JAVA_HOME/JAVA_HOME/' ~/.mavenrc
+    if [ -f $PWD/.mvn/jvm9.config ]; then
+        mv -f $PWD/.mvn/jvm9.config $PWD/.mvn/jvm.config
+    fi
+else
+    echo "Unknown version $java_version - doing nothing"
+fi
