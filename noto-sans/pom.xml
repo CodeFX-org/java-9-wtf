@@ -22,10 +22,6 @@
 			<activation>
 				<jdk>9</jdk>
 			</activation>
-			<properties>
-				<java>java9</java>
-				<javac>javac9</javac>
-			</properties>
 			<build>
 				<plugins>
 					<plugin>
@@ -33,7 +29,6 @@
 						<configuration>
 							<source>9</source>
 							<target>9</target>
-							<executable>${javac}</executable>
 							<compilerArgs>
 								<arg>--add-exports</arg><arg>java.desktop/sun.font=ALL-UNNAMED</arg>
 							</compilerArgs>

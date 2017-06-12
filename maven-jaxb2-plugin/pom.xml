@@ -87,7 +87,6 @@
 							<goal>java</goal>
 						</goals>
 						<configuration>
-							<!--<executable>${java}</executable>-->
 							<mainClass>wtf.java9.maven_jaxb2_plugin.GenerateWithJaxbApi</mainClass>
 							<arguments>${entity.resolver}</arguments>
 						</configuration>
@@ -104,10 +103,6 @@
 			<activation>
 				<jdk>1.8</jdk>
 			</activation>
-			<properties>
-				<java>java</java>
-				<javac>javac</javac>
-			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>org.glassfish.jaxb</groupId>
@@ -120,7 +115,6 @@
 					<plugin>
 						<artifactId>maven-compiler-plugin</artifactId>
 						<configuration>
-							<executable>${javac}</executable>
 							<compilerArgs>
 								<arg>-XDignore.symbol.file</arg>
 							</compilerArgs>
@@ -136,10 +130,6 @@
 			<activation>
 				<jdk>9</jdk>
 			</activation>
-			<properties>
-				<java>java9</java>
-				<javac>javac9</javac>
-			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>org.glassfish.jaxb</groupId>
@@ -168,7 +158,6 @@
 						<configuration>
 							<source>9</source>
 							<target>9</target>
-							<executable>${javac}</executable>
 							<compilerArgs>
 								<arg>--add-modules</arg><arg>java.xml.bind</arg>
 								<arg>--add-exports</arg><arg>java.xml/com.sun.org.apache.xml.internal.resolver=ALL-UNNAMED</arg>

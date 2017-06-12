@@ -26,7 +26,6 @@ On Java 8, the build should be successful.
 To run  it on Java 9:
 
 * [define `JAVA_HOME` in a `.mavenrc` file](https://github.com/CodeFX-org/mvn-java-9/tree/master/mavenrc), pointing to your Java 9 install
-* create a symlink for `javac9` and `java9` pointing to the respective binaries in your Java 9 install
 * in the `.mvn` folders, rename the non-empty files `jvm9.config` to `jvm.config`, which adds Java-9-specific command line flags required for the project
 
 
