@@ -29,13 +29,10 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-compiler-plugin</artifactId>
-						<version>3.6.1</version>
 						<configuration>
 							<source>9</source>
 							<target>9</target>
-							<fork>true</fork>
 							<executable>${javac}</executable>
 							<compilerArgs>
 								<arg>--add-exports</arg><arg>java.desktop/sun.font=ALL-UNNAMED</arg>
@@ -44,7 +41,6 @@
 					</plugin>
 					<plugin>
 						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.19</version>
 						<configuration>
 							<argLine>
 								--add-opens java.desktop/sun.font=ALL-UNNAMED

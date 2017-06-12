@@ -31,9 +31,7 @@
 		<plugins>
 			<!-- use the maven-jaxb2-plugin to generate classes -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.0.0</version>
 				<executions>
 					<execution>
 						<id>clean-generated</id>
@@ -120,16 +118,12 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-compiler-plugin</artifactId>
-						<version>3.6.1</version>
 						<configuration>
-							<fork>true</fork>
 							<executable>${javac}</executable>
 							<compilerArgs>
 								<arg>-XDignore.symbol.file</arg>
 							</compilerArgs>
-							<fork>true</fork>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -170,13 +164,10 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-compiler-plugin</artifactId>
-						<version>3.6.1</version>
 						<configuration>
 							<source>9</source>
 							<target>9</target>
-							<fork>true</fork>
 							<executable>${javac}</executable>
 							<compilerArgs>
 								<arg>--add-modules</arg><arg>java.xml.bind</arg>
