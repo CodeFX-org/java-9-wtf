@@ -1,6 +1,8 @@
 ---
-title:
+title: WTF, Java 9?!
 permalink: /
+header:
+  image: assets/site_images/banner-sw.jpg
 ---
 
 
