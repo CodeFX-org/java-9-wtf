@@ -15,6 +15,7 @@ So far we have trouble with...
 * [the Maven JAXB2 Plugin](maven-jaxb2-plugin)
 * [Noto Sans](noto-sans)
 * [XML transformations](xml-transformer)
+* [Graphics bounds](graphics-bounds)
 
 
 ## Observe!
