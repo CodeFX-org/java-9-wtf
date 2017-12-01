@@ -18,10 +18,10 @@ You could be looking at this either [as a beautiful static site](http://codefx-o
 So far we have trouble with...
 
 * [the compiler](compiler)
+* [graphics bounds](graphics-bounds)
 * [the Maven JAXB2 Plugin](maven-jaxb2-plugin)
 * [Noto Sans](noto-sans)
 * [XML transformations](xml-transformer)
-
 
 ## Observe!
 
