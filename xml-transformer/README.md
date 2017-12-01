@@ -41,7 +41,7 @@ On Java 8 you get:
 On Java 9, though, this happens:
 
 * entire document is indented according to settings, including a bunch of spurious empty lines
-* accordingly new nodes are indented
+* accordingly, new nodes are indented
 * CDATA is put onto new lines and indented as well, fundamentally changing the XML!
 
 Furthermore, with further configuration it becomes apparent that `xml:space="preserve"` behaves differently as well.
@@ -49,4 +49,4 @@ On Java 8 it has no effect, on Java 9 it drops us back into the "nothing changes
 
 [The test](src/test/java/wtf/java9/xml_transformer/TransformTest.java) demonstrates that behavior, using JUnit 5's cool nested tests. 
 
-(Last checked: 8u131 and 9-ea+172-jigsaw)
+(Last checked: 8u152 and 9.0.1)

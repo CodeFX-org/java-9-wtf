@@ -19,6 +19,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import static java.util.Arrays.stream;
 import static java.util.Objects.requireNonNull;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -53,18 +54,29 @@ class TransformTest {
 	@Nested
 	class DefaultSettings {
 
+		// These tests are expected to pass on Java 9
+
 		@Test
 		void keepsRootOnFirstLine() throws Exception {
 			Lines transformation = transform(parse(INITIAL_XML));
 
-			assertThat(transformation.at(0)).contains("<root");
+			assertThat(transformation.lineAt(0)).contains("<root");
+		}
+
+		@Test
+		void doesNotAddEmptyLines(TestReporter reporter) throws Exception {
+			Lines transformation = transform(parse(INITIAL_XML));
+
+			reporter.publishEntry("Transformed XML", "\n" + transformation);
+
+			assertThat(transformation.lineAt(2).trim()).isNotEmpty();
 		}
 
 		@Test
 		void keepsIndentation() throws Exception {
 			Lines transformation = transform(parse(INITIAL_XML));
 
-			assertThat(transformation.at(1)).startsWith("  ");
+			assertThat(transformation.lineAt(1)).startsWith("  <");
 		}
 
 		@Test
@@ -73,7 +85,7 @@ class TransformTest {
 			setChildNode(document, "node", "inner", "inner node content");
 			Lines transformation = transform(document);
 
-			assertThat(transformation.at(1)).endsWith("<node><inner>inner node content</inner></node>");
+			assertThat(transformation.lineAt(1)).endsWith("<node><inner>inner node content</inner></node>");
 		}
 
 		@Test
@@ -82,7 +94,7 @@ class TransformTest {
 			setCDataContent(document, "node", "cdata content");
 			Lines transformation = transform(document);
 
-			assertThat(transformation.at(1)).endsWith("<node><![CDATA[cdata content]]></node>");
+			assertThat(transformation.lineAt(1)).endsWith("<node><![CDATA[cdata content]]></node>");
 		}
 
 	}
@@ -94,27 +106,38 @@ class TransformTest {
 		void createTransformer() throws Exception {
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			// note that the indentation is set to be changed to four spaces
-			// TODO why is indent 4 not used in Java 9? (looks like 2)
 			transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "4");
 		}
 
-		@Test
-		void pushesRootNodeToUnindentedNewLine() throws Exception {
+		@Test // expected to pass on Java 9
+		void pushesRootNodeToUnindentedNewLine(TestReporter reporter) throws Exception {
 			Lines transformation = transform(parse(INITIAL_XML));
 
-			assertThat(transformation.at(0)).doesNotContain("<root");
-			assertThat(transformation.at(1)).startsWith("<root");
+			reporter.publishEntry("Transformed XML", "\n" + transformation);
 
+			assertThat(transformation.lineAt(0)).doesNotContain("<root");
+			assertThat(transformation.lineAt(1)).startsWith("<root");
 		}
 
-		@Test
-		void keepsIndentationOfUnchangedNodes() throws Exception {
+		@Test // expected to fail on Java 9 because it puts in new lines
+		void doesNotAddEmptyLines(TestReporter reporter) throws Exception {
 			Lines transformation = transform(parse(INITIAL_XML));
 
-			assertThat(transformation.at(2)).startsWith("  ");
+			reporter.publishEntry("Transformed XML", "\n" + transformation);
+
+			assertThat(transformation.lineAt(2).trim()).isNotEmpty();
 		}
 
-		@Test
+		@Test // expected to fail on Java 9 because it reformats existing lines
+		void keepsIndentationOfUnchangedNodes(TestReporter reporter) throws Exception {
+			Lines transformation = transform(parse(INITIAL_XML));
+
+			reporter.publishEntry("Transformed XML", "\n" + transformation);
+
+			assertThat(transformation.lineWith("<node")).startsWith("  <node");
+		}
+
+		@Test // expected to pass on Java 9 because new nodes are always correctly indented
 		void newNodesAreIndented(TestReporter reporter) throws Exception {
 			Document document = parse(INITIAL_XML);
 			setChildNode(document, "node", "inner", "inner node content");
@@ -122,12 +145,10 @@ class TransformTest {
 
 			reporter.publishEntry("Transformed XML", "\n" + transformation);
 
-			assertThat(transformation.at(2)).endsWith("<node>");
-			assertThat(transformation.at(3)).isEqualTo("        <inner>inner node content</inner>");
-			assertThat(transformation.at(4)).endsWith("</node>");
+			assertThat(transformation.lineWith("<inner>")).isEqualTo("        <inner>inner node content</inner>");
 		}
 
-		@Test
+		@Test // expected to fail on Java 9 because it puts CDATA on its own line
 		void cDataIsInline(TestReporter reporter) throws Exception {
 			Document document = parse(INITIAL_XML);
 			setCDataContent(document, "node", "cdata content");
@@ -135,7 +156,7 @@ class TransformTest {
 
 			reporter.publishEntry("Transformed XML", "\n" + transformation);
 
-			assertThat(transformation.at(2)).endsWith("<node><![CDATA[cdata content]]></node>");
+			assertThat(transformation.lineWith("CDATA")).endsWith("<node><![CDATA[cdata content]]></node>");
 		}
 
 	}
@@ -143,7 +164,7 @@ class TransformTest {
 	/*
 	 * HELPER
 	 */
-	
+
 	private static Document parse(String xml) throws Exception {
 		return DOCUMENT_BUILDER_FACTORY
 				.newDocumentBuilder()
@@ -182,8 +203,15 @@ class TransformTest {
 			return new Lines(string.split(System.lineSeparator()));
 		}
 
-		public String at(int line) {
+		public String lineAt(int line) {
 			return lines[line];
+		}
+
+		public String lineWith(String content) {
+			return stream(lines)
+					.filter(line -> line.contains(content))
+					.findFirst()
+					.orElseThrow(() -> new IllegalArgumentException("No line contains \"" + content + "\"."));
 		}
 
 		@Override
