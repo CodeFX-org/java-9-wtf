@@ -17,6 +17,7 @@
 
 	<modules>
 		<module>compiler</module>
+		<module>graphics-bounds</module>
 		<module>maven-jaxb2-plugin</module>
 		<module>noto-sans</module>
 		<module>xml-transformer</module>
