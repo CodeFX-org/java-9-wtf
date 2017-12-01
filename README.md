@@ -9,9 +9,10 @@ You could be looking at this either [as a beautiful static site](http://codefx-o
 
 ## Browse!
 
-So far we have trouble with...
+So far we have "trouble" with...
 
 * [the compiler](compiler)
+* [the default package](default-package)
 * [graphics bounds](graphics-bounds)
 * [the Maven JAXB2 Plugin](maven-jaxb2-plugin)
 * [Noto Sans](noto-sans)
