@@ -11,6 +11,10 @@ import static wtf.java9.maven_jaxb2_plugin.GenerateWithJaxbApi.GENERATION_TARGET
 
 public class JaxbApiTest {
 
+	/*
+	 * All tests in this class are expected to pass on Java 9.
+	 */
+
 	@Test
 	public void simpleCaseWorks() throws Exception {
 		Path simpleClass = Paths
