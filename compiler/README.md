@@ -40,4 +40,4 @@ private Stream<T[]> streamSelectionPaths() {
 }
 ```
 
-(Last checked: 8u131 and 9-ea+172-jigsaw)
+(Last checked: 8u152 and 9.0.1)
