@@ -1,6 +1,6 @@
 ---
 title: Binding Problems with Maven-JAXB2-Plugin
-date: 2017-06-09
+date: 2017-12-01
 ---
 
 
@@ -20,7 +20,7 @@ Running the project with `mvn clean test` creates two `generated-jaxb-*` folders
 On Java 8 they are identical, on Java 9 they are not.
 [The tests](https://github.com/CodeFX-org/java-9-wtf/tree/master/./maven-jaxb2-plugin/src/test/java/wtf/java9/maven_jaxb2_plugin) try to verify that the sources are present and accordingly fail on Java 9.
 
-(Last checked: 8u131 and 9-ea+172-jigsaw)
+(Last checked: 8u152 and 9.0.1)
 
 ## Plugin Version
 
