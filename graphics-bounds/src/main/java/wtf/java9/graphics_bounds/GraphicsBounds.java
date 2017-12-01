@@ -1,8 +1,7 @@
 package wtf.java9.graphics_bounds;
 
-import java.awt.*;
-import java.awt.image.*;
-import java.lang.reflect.Constructor;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public class GraphicsBounds {
 
@@ -15,6 +14,8 @@ public class GraphicsBounds {
 	 */
 	public static Rectangle createBounds() {
 		return new BufferedImage(800, 600, BufferedImage.TYPE_3BYTE_BGR)
-			.createGraphics().getDeviceConfiguration().getBounds();
+				.createGraphics()
+				.getDeviceConfiguration()
+				.getBounds();
 	}
 }
