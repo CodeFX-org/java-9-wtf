@@ -18,6 +18,8 @@ If this happens in a tight loop (e.g. to display the size of a list of labels, e
 
 [The test](src/test/java/wtf/java9/noto_sans/NotoSansTest.java) tries to demonstrate the performance variance by failing the test if it runs longer than half a second but whether that is enough to succeed on Java 8 and fail on Java 9 of course depends on the machine.
 
-(Last checked: 8u131 and 9-ea+172-jigsaw)
+(Last checked: 8u131/8u152 and 9.0.1)
+
+**Update**: Was the regression backported to Java 8? On my machine the test passed with 8u131 but now fails with 8u152.
 
 Two JDK-issues ([JDK-8168288](https://bugs.openjdk.java.net/browse/JDK-8168288) and [JDK-8074562](https://bugs.openjdk.java.net/browse/JDK-8074562)) seem related but are supposed to be resolved and available in ea-170 - so how is this still a thing?
