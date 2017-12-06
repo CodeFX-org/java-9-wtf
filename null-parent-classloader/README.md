@@ -6,25 +6,25 @@ passed to the URLClassLoader. A null parent ClassLoader signifies the bootstrap 
 that the bootstrap ClassLoader is able to load has changed between Java 8 and Java 9. In Java 8 every platform
 class other than the JavaFX classes is visible to the bootstrap ClassLoader. Under Java 9, the bootstrap
 ClassLoader has reduced this. There does not appear to be a well defined list of modules that go into the
-bootstrap class loader, so I created a BootstrapLoaderTest that attempts to load classes from several of the
+bootstrap class loader, so I created a `BootstrapLoaderTest` that attempts to load classes from several of the
 non-core java/javax packages to validate what packages are visible to the bootstrap class loader.
 
 This shows the following packages that were visible under Java 8 to no longer be visible under Java 9:
-java.sql.*
-javax.activation.*
-javax.annotation.*
-javax.jws.*
-javax.lang.model.*
-javax.rmi.*
-javax.script.*
-javax.smartcardio.*
-javax.sql.*
-javax.tools.*
-javax.transaction.xa.*
-javax.xml.bind.*
-javax.xml.crypto.*
-javax.xml.soap.*
-javax.xml.ws.*
+* java.sql.*
+* javax.activation.*
+* javax.annotation.*
+* javax.jws.*
+* javax.lang.model.*
+* javax.rmi.*
+* javax.script.*
+* javax.smartcardio.*
+* javax.sql.*
+* javax.tools.*
+* javax.transaction.xa.*
+* javax.xml.bind.*
+* javax.xml.crypto.*
+* javax.xml.soap.*
+* javax.xml.ws.*
 
 
 To build and run the NullParentClassLoaderTest tests, use:
@@ -50,8 +50,8 @@ Results :
 Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 ```
 
-In Java 9, this is no longer works and instead the new [ClassLoader#getPlatformClassLoader](https://docs.oracle.com/javase/9/docs/api/java/lang/ClassLoader.html#getPlatformClassLoader--), method
-must be used to obtain a parent that has visibility to all of the platform classes. Using null as the parent under Java 9 causes:
+Under Java 9, this is no longer works and instead the new [ClassLoader#getPlatformClassLoader](https://docs.oracle.com/javase/9/docs/api/java/lang/ClassLoader.html#getPlatformClassLoader--),
+method must be used to obtain a parent that has visibility to all of the platform classes. Using null as the parent under Java 9 causes:
 
 ```
 Running BootstrapLoaderTest
@@ -94,6 +94,15 @@ Failed tests:
   NullParentClassLoaderTest.loadSqlDateUsingNullParent:21 » NoClassDefFound java...
 
 Tests run: 2, Failures: 2, Errors: 0, Skipped: 0
+```
+
+## Workaround
+The workaround for the failure in the `NullParentClassLoaderTest` is to pass in the new Java 9 platform classloader
+available from the `ClassLoader#getPlatformClassLoader()` method when building the URLClassLoader:
+```java
+    URL path[] = {...};
+    ClassLoader parent = ClassLoader.getPlatformClassLoader();
+    URLClassLoader loader = new URLClassLoader(path, parent);
 ```
 
 (Last checked: 8u152 and 9.0.1; contributed by [Scott Stark](https://github.com/starksm64))
