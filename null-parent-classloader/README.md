@@ -5,8 +5,31 @@ parent ClassLoader to isolate the loaded coded to just the classes of the runtim
 passed to the URLClassLoader. A null parent ClassLoader signifies the bootstrap ClassLoader. The set of classes
 that the bootstrap ClassLoader is able to load has changed between Java 8 and Java 9. In Java 8 every platform
 class other than the JavaFX classes is visible to the bootstrap ClassLoader. Under Java 9, the bootstrap
-ClassLoader has reduced this. There does not appear to be a well defined list of modules that go into the
-bootstrap class loader, so I created a `BootstrapLoaderTest` that attempts to load classes from several of the
+ClassLoader has reduced this. The list of modules that go into the
+bootstrap class loader can be found in [JEP 261: Module System#Class-loaders](http://openjdk.java.net/jeps/261#Class-loaders).
+That defines the bootstrap class loader to consist of the following modules:
+* java.base
+* java.datatransfer
+* java.desktop
+* java.instrument
+* java.logging
+* java.management
+* java.management.rmi
+* java.naming
+* java.prefs
+* java.rmi
+* java.security.sasl
+* java.xml
+* jdk.httpserver
+* jdk.internal.vm.ci
+* jdk.management
+* jdk.management.agent
+* jdk.naming.rmi
+* jdk.net
+* jdk.sctp
+* jdk.unsupported
+
+I have created a `BootstrapLoaderTest` that attempts to load classes from several of the
 non-core java/javax packages to validate what packages are visible to the bootstrap class loader.
 
 This shows the following packages that were visible under Java 8 to no longer be visible under Java 9:
