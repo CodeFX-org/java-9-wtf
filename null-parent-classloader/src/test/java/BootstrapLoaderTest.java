@@ -1,4 +1,10 @@
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestReporter;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -6,19 +12,26 @@ import static org.assertj.core.api.Assertions.assertThat;
  * from the bootstrap ClassLoader
  */
 public class BootstrapLoaderTest {
-    /**
-     * A simple ClassLoader that specifies null to use the bootstrap ClassLoader as its parent
-     */
-    static class TestClassLoader extends ClassLoader {
-        TestClassLoader() {
-            super(null);
-        }
+
+    @ParameterizedTest(name = "loading {0}")
+    @MethodSource(value = "classNames")
+    public void loadJdkClass(String className, TestReporter reporter) throws ClassNotFoundException {
+        TestClassLoader classLoader = new TestClassLoader();
+
+		try {
+			Class c = classLoader.loadClass(className);
+			reporter.publishEntry(className, "visible");
+			// the assertion is pretty useless, but if `c` would not be used,
+			// dead code elimination might remove it
+			assertThat(c.getName()).isEqualTo(className);
+		} catch (ClassNotFoundException ex) {
+			reporter.publishEntry(className, "not visible");
+			throw ex;
+		}
     }
 
-    @Test
-    public void testLoadClasses() {
-        TestClassLoader classLoader = new TestClassLoader();
-        String[] classes = {
+    private static Stream<String> classNames() {
+        return Stream.of(
                 "java.applet.Applet",
                 "java.awt.Image",
                 "java.awt.dnd.DropTarget",
@@ -65,20 +78,17 @@ public class BootstrapLoaderTest {
                 "javax.xml.transform.Transformer",
                 "javax.xml.validation.Validator",
                 "javax.xml.ws.Service",
-                "javax.xml.xpath.XPath",
+                "javax.xml.xpath.XPath"
+        );
+    }
 
-        };
-        int cnfeCount = 0;
-        for(String name : classes) {
-            try {
-                Class c = classLoader.loadClass(name);
-                //System.out.printf("%s => %s, loader=%s\n", name, c, c.getClassLoader());
-            } catch (ClassNotFoundException e) {
-                System.err.printf("%s is not visible\n", name);
-                cnfeCount ++;
-            }
+    /**
+     * A simple ClassLoader that specifies null to use the bootstrap ClassLoader as its parent
+     */
+    static class TestClassLoader extends ClassLoader {
+        TestClassLoader() {
+            super(null);
         }
-        assertThat(cnfeCount).isEqualTo(0);
     }
 
 }
