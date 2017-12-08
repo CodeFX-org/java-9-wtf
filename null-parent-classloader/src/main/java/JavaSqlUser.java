@@ -1,17 +1,19 @@
 import java.sql.Date;
 
 public class JavaSqlUser {
-    private SqlDateUser sqlDateUser;
 
-    public JavaSqlUser() {
-        sqlDateUser = new SqlDateUser();
-    }
+	private SqlDateUser sqlDateUser;
 
-    public Date getDate() {
-        return sqlDateUser.getDate();
-    }
+	public JavaSqlUser() {
+		sqlDateUser = new SqlDateUser();
+	}
 
-    public String toString() {
-        return String.format("JavaSqlUser(%s)", sqlDateUser);
-    }
+	public Date getDate() {
+		return sqlDateUser.getDate();
+	}
+
+	public String toString() {
+		return String.format("JavaSqlUser(%s)", sqlDateUser);
+	}
+
 }
