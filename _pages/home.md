@@ -17,6 +17,7 @@ You could be looking at this either [as a beautiful static site](http://codefx-o
 
 So far we have "trouble" with...
 
+* [class loading](class-loading)
 * [the compiler](compiler)
 * [the default package](default-package)
 * [graphics bounds](graphics-bounds)
