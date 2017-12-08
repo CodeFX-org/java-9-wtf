@@ -1,3 +1,5 @@
+package wtf.java9.class_loading;
+
 import org.junit.jupiter.api.TestReporter;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;

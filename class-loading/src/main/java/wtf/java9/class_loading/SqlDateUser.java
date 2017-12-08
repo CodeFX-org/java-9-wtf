@@ -1,3 +1,5 @@
+package wtf.java9.class_loading;
+
 import java.sql.Date;
 
 public class SqlDateUser {

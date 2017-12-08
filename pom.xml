@@ -16,12 +16,12 @@
 	</properties>
 
 	<modules>
+		<module>class-loading</module>
 		<module>compiler</module>
 		<module>default-package</module>
 		<module>graphics-bounds</module>
 		<module>maven-jaxb2-plugin</module>
 		<module>noto-sans</module>
-		<module>null-parent-classloader</module>
 		<module>xml-transformer</module>
 	</modules>
 

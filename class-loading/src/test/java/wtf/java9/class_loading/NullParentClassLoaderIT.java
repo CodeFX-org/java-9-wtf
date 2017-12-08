@@ -1,3 +1,5 @@
+package wtf.java9.class_loading;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestReporter;
 
@@ -20,7 +22,7 @@ public class NullParentClassLoaderIT {
 	public void loadSqlDateUsingNullParent(TestReporter reporter) throws Exception {
 		URLClassLoader loader = buildLoader(reporter);
 
-		Class<?> jsqlUserClass = loader.loadClass("JavaSqlUser");
+		Class<?> jsqlUserClass = loader.loadClass("wtf.java9.class_loading.JavaSqlUser");
 		reporter.publishEntry("Loaded class", jsqlUserClass.toString());
 
 		Object jsqlUser = jsqlUserClass.getConstructor().newInstance();
@@ -42,7 +44,7 @@ public class NullParentClassLoaderIT {
 		Path projectJar = Paths
 				.get(testRootFolder)
 				.getParent()
-				.resolve("null-parent-classloader-1.0-SNAPSHOT.jar");
+				.resolve("class-loading-1.0-SNAPSHOT.jar");
 
 		assumeTrue(
 				projectJar.toFile().exists(),

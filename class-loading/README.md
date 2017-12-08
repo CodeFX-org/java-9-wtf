@@ -50,7 +50,7 @@ This shows the following packages that were visible under Java 8 to no longer be
 * javax.xml.ws.*
 
 
-To build and run the NullParentClassLoaderTest tests, use:
+To build and run the NullParentClassLoaderIT tests, use:
 
 ```
 mvn package -DskipTests=true
@@ -62,11 +62,11 @@ Output on Java 8:
 ```
 Running BootstrapLoaderTest
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.092 sec - in BootstrapLoaderTest
-Running NullParentClassLoaderTest
+Running NullParentClassLoaderIT
 rootURL=file:/Users/starksm/Dev/Java/Java9/starksm64-java-9-wtf/null-parent-classloader/target/test-classes/, file=/Users/starksm/Dev/Java/Java9/starksm64-java-9-wtf/null-parent-classloader/target/test-classes/
 Loaded class: class JavaSqlUser, loader=java.net.URLClassLoader@53f65459
 Loaded instance: JavaSqlUser(SqlDateUser@15d0c81b)
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in NullParentClassLoaderTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec - in NullParentClassLoaderIT
 
 Results :
 
@@ -99,28 +99,28 @@ testLoadClasses()  Time elapsed: 0.075 sec  <<< FAILURE!
 org.junit.ComparisonFailure: expected:<[0]> but was:<[16]>
 	at BootstrapLoaderTest.testLoadClasses(BootstrapLoaderTest.java:81)
 
-Running NullParentClassLoaderTest
+Running NullParentClassLoaderIT
 rootURL=file:/Users/starksm/Dev/Java/Java9/starksm64-java-9-wtf/null-parent-classloader/target/test-classes/, file=/Users/starksm/Dev/Java/Java9/starksm64-java-9-wtf/null-parent-classloader/target/test-classes/
 Loaded class: class JavaSqlUser, loader=java.net.URLClassLoader@128d2484
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec <<< FAILURE! - in NullParentClassLoaderTest
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec <<< FAILURE! - in NullParentClassLoaderIT
 loadSqlDateUsingNullParent()  Time elapsed: 0.002 sec  <<< FAILURE!
 java.lang.NoClassDefFoundError: java/sql/Date
-	at NullParentClassLoaderTest.loadSqlDateUsingNullParent(NullParentClassLoaderTest.java:21)
+	at NullParentClassLoaderIT.loadSqlDateUsingNullParent(NullParentClassLoaderIT.java:21)
 Caused by: java.lang.ClassNotFoundException: java.sql.Date
-	at NullParentClassLoaderTest.loadSqlDateUsingNullParent(NullParentClassLoaderTest.java:21)
+	at NullParentClassLoaderIT.loadSqlDateUsingNullParent(NullParentClassLoaderIT.java:21)
 
 
 Results :
 
 Failed tests:
   BootstrapLoaderTest.testLoadClasses:81 expected:<[0]> but was:<[16]>
-  NullParentClassLoaderTest.loadSqlDateUsingNullParent:21 » NoClassDefFound java...
+  NullParentClassLoaderIT.loadSqlDateUsingNullParent:21 » NoClassDefFound java...
 
 Tests run: 2, Failures: 2, Errors: 0, Skipped: 0
 ```
 
 ## Workaround
-The workaround for the failure in the `NullParentClassLoaderTest` is to pass in the new Java 9 platform classloader
+The workaround for the failure in the `NullParentClassLoaderIT` is to pass in the new Java 9 platform classloader
 available from the `ClassLoader#getPlatformClassLoader()` method when building the URLClassLoader:
 ```java
     URL path[] = {...};
