@@ -45,6 +45,7 @@ Adding the artifact as a dependency leads to the following error:
 ```
 
 Research leads to the issues [#525522](https://bugs.eclipse.org/bugs/show_bug.cgi?id=525522) and [#526206](https://bugs.eclipse.org/bugs/show_bug.cgi?id=526206), but they are supposedly fixed, so this shouldn't happen, should it?
+To find out, I opened [a new issue](https://bugs.eclipse.org/bugs/show_bug.cgi?id=531579).
 
 ## Command Line Flags
 

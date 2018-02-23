@@ -35,7 +35,7 @@
 					<source>9</source>
 					<target>9</target>
 					<compilerArgs>
-						<arg>--add-modules=java.xml.bind</arg>
+						<!-- <arg>&#45;&#45;add-modules=java.xml.bind</arg> -->
 					</compilerArgs>
 				</configuration>
 				<dependencies>
