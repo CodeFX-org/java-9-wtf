@@ -30,7 +30,7 @@
 							<source>9</source>
 							<target>9</target>
 							<compilerArgs>
-								<arg>--add-exports</arg><arg>java.desktop/sun.font=ALL-UNNAMED</arg>
+								<arg>--add-exports=java.desktop/sun.font=ALL-UNNAMED</arg>
 							</compilerArgs>
 						</configuration>
 					</plugin>
