@@ -1,6 +1,10 @@
 .idea
 *.iml
 
+.project
+.settings
+.classpath
+
 out
 generated
 generated-*
