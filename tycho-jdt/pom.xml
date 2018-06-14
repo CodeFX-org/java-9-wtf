@@ -36,6 +36,10 @@
 					<target>9</target>
 					<compilerArgs>
 						<!-- <arg>&#45;&#45;add-modules=java.xml.bind</arg> -->
+						<!-- The Tycho artifacts check dependency signatures, but we have to replace the
+								the compiler with a newer version (see below). The option `-proc:none`
+								deactivates the signature check. -->
+						<arg>-proc:none</arg>
 					</compilerArgs>
 				</configuration>
 				<dependencies>
@@ -44,15 +48,13 @@
 						<artifactId>tycho-compiler-jdt</artifactId>
 						<version>1.1.0</version>
 					</dependency>
-					<!--<dependency>-->
-						<!--<groupId>org.eclipse.jdt</groupId>-->
-						<!--<artifactId>org.eclipse.jdt.core</artifactId>-->
-						<!--<version>3.13.100</version>-->
-					<!--</dependency>-->
 					<dependency>
 						<groupId>org.eclipse.tycho</groupId>
 						<artifactId>org.eclipse.jdt.core</artifactId>
 						<version>3.14.0.v20171206-0802</version>
+						<!-- unreleased version that was pulled from Eclipse Photon I20180531-0700
+								contains the fix and compiles Java 10 -->
+						<!--<version>3.14.0.v20180528-0519</version>-->
 					</dependency>
 				</dependencies>
 			</plugin>
