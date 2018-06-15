@@ -23,6 +23,7 @@ So far we have "trouble" with...
 * [graphics bounds](graphics-bounds)
 * [the Maven JAXB2 Plugin](maven-jaxb2-plugin)
 * [Noto Sans](noto-sans)
+* [weird Tycho/JDT behavior](tycho-jdt)
 * [XML transformations](xml-transformer)
 
 ## Observe!

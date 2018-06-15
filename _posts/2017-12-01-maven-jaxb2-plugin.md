@@ -28,6 +28,8 @@ The published version of this project uses version 0.13.2 of the JAXB2 plugin.
 Efforts to make it work with a Java 9 specific version were unsuccessful as well.
 Those efforts can be tracked [in this private branch of the Maven JAXB2 Plugin](https://github.com/nicolaiparlog/maven-jaxb2-plugin/tree/java-9).
 
+**NOTE**: A Java 9 compatible version was released: 0.14.0. Huzzah!
+
 ## API Use
 
 In an effort to slowly approach the plugin's implementation, particularly regarding the used `EntityResolver` different variants were implemented.
