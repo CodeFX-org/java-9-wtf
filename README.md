@@ -19,6 +19,7 @@ So far we have "trouble" with...
 * [Noto Sans](noto-sans)
 * [weird Tycho/JDT behavior](tycho-jdt)
 * [XML transformations](xml-transformer)
+* [Symbolic References](symbolic-references)
 
 ## Observe!
 

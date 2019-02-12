@@ -24,6 +24,7 @@
 		<module>noto-sans</module>
 		<module>tycho-jdt</module>
 		<module>xml-transformer</module>
+		<module>symbolic-references</module>
 	</modules>
 
 	<dependencies>
