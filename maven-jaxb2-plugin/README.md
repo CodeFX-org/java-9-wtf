@@ -29,7 +29,7 @@ Those efforts can be tracked [in this private branch of the Maven JAXB2 Plugin](
 ## API Use
 
 In an effort to slowly approach the plugin's implementation, particularly regarding the used `EntityResolver` different variants were implemented.
-They can be seen in [`EntityResovlerFactory`](src/main/java/wtf/java9/maven_jaxb2_plugin/EntityResolverFactory.java) and selected with the Maven property `entity.resolver`, e.g.:
+They can be seen in [`EntityResolverFactory`](src/main/java/wtf/java9/maven_jaxb2_plugin/EntityResolverFactory.java) and selected with the Maven property `entity.resolver`, e.g.:
 
     mvn clean test -Dentity.resolver=simple
 
